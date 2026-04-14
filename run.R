@@ -34,14 +34,14 @@ library(anndataR)
 sce <- read_h5ad(args$input_h5, as = "SingleCellExperiment")
 
 
-if (filter_type == "manual") {
+if (args$filter_type == "manual") {
   qc <- metadata(sce)$qc_thresholds
   mt_percent <- rna.qc.metrics$subsets$mt * 100
   keep <- rna.qc.metrics$detected >= qc[qc$metric == "nFeature", "min"] &
     rna.qc.metrics$detected <= qc[qc$metric == "nFeature", "max"] &
     mt_percent < qc[qc$metric == "percent.mt", "max"] &
     rna.qc.metrics$sum <= qc[qc$metric == "nCount", "max"]
-} else if (filter_type == "scrapper-auto") {
+} else if (args$filter_type == "scrapper-auto") {
   require(DelayedArray)
   require(scrapper)
   rna.qc.thresholds <- suggestRnaQcThresholds(rna.qc.metrics)
