@@ -18,7 +18,7 @@ parser$add_argument("--name", dest="name", type="character", required=TRUE,
 parser$add_argument("--type", dest="type", type="character", help="type of filtering")
 
 # parameter for 'input_h5' (comes from 1st stage)
-parser$add_argument("--1-data.h5ad", dest="input_h5", type="character", help="input file")
+parser$add_argument("--rawdata.h5ad", dest="input_h5", type="character", help="input file")
 
 args <- parser$parse_args()
 
