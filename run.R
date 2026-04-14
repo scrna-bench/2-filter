@@ -52,5 +52,5 @@ if (args$filter_type == "manual") {
 }
 
 output_file <- file.path(args$output_dir, paste0(args$name, "_cellids.txt.gz"))
-writeLines(rownames(sce)[keep], output_file)
+writeLines(colnames(sce)[keep], output_file)
 
