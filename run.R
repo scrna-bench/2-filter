@@ -41,7 +41,7 @@ if (type == "manual") {
     rna.qc.metrics$detected <= qc[qc$metric == "nFeature", "max"] &
     mt_percent < qc[qc$metric == "percent.mt", "max"] &
     rna.qc.metrics$sum <= qc[qc$metric == "nCount", "max"]
-} else if (type == "scrapper-auto" {
+} else if (type == "scrapper-auto") {
   require(DelayedArray)
   require(scrapper)
   rna.qc.thresholds <- suggestRnaQcThresholds(rna.qc.metrics)
