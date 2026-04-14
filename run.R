@@ -30,9 +30,13 @@ cat("Filtering type:", args$filter_type, "\n")
 
 library(SingleCellExperiment)
 library(anndataR)
+library(scrapper)
 
 sce <- read_h5ad(args$input_h5, as = "SingleCellExperiment")
 
+is.mito <- grepl("^MT-", rownames(sce))
+rna.qc.metrics <- computeRnaQcMetrics(assay(sce), 
+                                      subsets = list(mt = is.mito))
 
 if (args$filter_type == "manual") {
   qc <- metadata(sce)$qc_thresholds
@@ -43,7 +47,6 @@ if (args$filter_type == "manual") {
     rna.qc.metrics$sum <= qc[qc$metric == "nCount", "max"]
 } else if (args$filter_type == "scrapper-auto") {
   require(DelayedArray)
-  require(scrapper)
   rna.qc.thresholds <- suggestRnaQcThresholds(rna.qc.metrics)
   keep <- filterRnaQcMetrics(rna.qc.thresholds, rna.qc.metrics)
 }
